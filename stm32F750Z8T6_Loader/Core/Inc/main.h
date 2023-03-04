@@ -60,11 +60,12 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void SystemClock_Config(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SDRAM_DEVICE_ADDR 0xC0000000
+#define Alive_LED_Pin GPIO_PIN_3
+#define Alive_LED_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
 

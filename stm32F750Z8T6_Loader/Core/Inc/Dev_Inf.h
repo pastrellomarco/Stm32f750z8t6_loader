@@ -32,6 +32,7 @@ struct StorageInfo
    struct 	  DeviceSectors	 sectors[SECTOR_NUM];
 };
 
+#define LOADER_VERSION	"V1.2"
 
 
 #endif /* DEV_INF_H_ */

@@ -90,12 +90,6 @@ int main(void)
 
   /* USER CODE END 1 */
 
-  /* Enable I-Cache---------------------------------------------------------*/
-  SCB_EnableICache();
-
-  /* Enable D-Cache---------------------------------------------------------*/
-  SCB_EnableDCache();
-
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
@@ -147,18 +141,18 @@ int main(void)
 
 
       // Disable the cache
-      SCB_DisableDCache();
-      SCB_DisableICache();
+ //     SCB_DisableDCache();
+ //     SCB_DisableICache();
 
 
-      // Disable the systick interrupt
-      SysTick->CTRL = 0;
+//      // Disable the systick interrupt
+ //     SysTick->CTRL = 0;
 
 
-      /* Initialize user application's Stack Pointer & Jump to user application */
-      JumpToApplication = (pFunction) (*(__IO uint32_t*) (APPLICATION_ADDRESS + 4));  // Reset Handler
-      __set_MSP(*(__IO uint32_t*) APPLICATION_ADDRESS);   // stack pointer
-      JumpToApplication();	  // make the jump
+ //     /* Initialize user application's Stack Pointer & Jump to user application */
+ //     JumpToApplication = (pFunction) (*(__IO uint32_t*) (APPLICATION_ADDRESS + 4));  // Reset Handler
+//      __set_MSP(*(__IO uint32_t*) APPLICATION_ADDRESS);   // stack pointer
+ //     JumpToApplication();	  // make the jump
 #endif
 
 #ifdef HW_TEST
@@ -171,40 +165,40 @@ int main(void)
 //  	    }
 //
 //
-//  	for (var = 0; var < SECTORS_TO_CHECK; var++)
-//  		{
-//  		if (CSP_QSPI_EraseSector(var * MEMORY_SECTOR_SIZE,(var + 1) * MEMORY_SECTOR_SIZE - 1) != HAL_OK)
-//  			{
-//  			Error_Handler();  //breakpoint - error detected
-//  			}
-//
-//  		if (CSP_QSPI_WriteMemory(buffer_test, var * MEMORY_SECTOR_SIZE,	sizeof(buffer_test)) != HAL_OK)
-//  			{
-//  			Error_Handler();  //breakpoint - error detected
-//  			}
-//  		}
-//
+  	for (var = 0; var < SECTORS_TO_CHECK; var++)
+  		{
+  		if (CSP_QSPI_EraseSector(var * MEMORY_SECTOR_SIZE,(var + 1) * MEMORY_SECTOR_SIZE - 1) != HAL_OK)
+  			{
+  			Error_Handler();  //breakpoint - error detected
+  			}
+
+  		if (CSP_QSPI_WriteMemory(buffer_test, var * MEMORY_SECTOR_SIZE,	sizeof(buffer_test)) != HAL_OK)
+  			{
+  			Error_Handler();  //breakpoint - error detected
+  			}
+  		}
+
   	if (CSP_QSPI_EnableMemoryMappedMode() != HAL_OK)
   		{
   		Error_Handler(); //breakpoint - error detected
   		}
 
 
-//  	for (var = 0; var < SECTORS_TO_CHECK; var++)
-//  		{
-//  		ReadAddress = (QSPI_BASE + (var * MEMORY_SECTOR_SIZE));
-//  		if (memcmp(buffer_test, (uint8_t*) (QSPI_BASE + (var * MEMORY_SECTOR_SIZE)) , MEMORY_SECTOR_SIZE) != HAL_OK)
-//  			{
-//  			for (var2 = 0; var2 < MEMORY_SECTOR_SIZE; var2++)
-//  				{
-//  				buffer_Read[var2] = *(uint32_t*) ReadAddress;
-//  				ReadAddress++;
-//
-//  				if (buffer_Read[var2] != buffer_test[var2])
-//  					Error_Handler();  //breakpoint - error detected - otherwise QSPI works properly
-//  				}
-//  			}
-//  		}
+  	for (var = 0; var < SECTORS_TO_CHECK; var++)
+  		{
+  		ReadAddress = (QSPI_BASE + (var * MEMORY_SECTOR_SIZE));
+  		if (memcmp(buffer_test, (uint8_t*) (QSPI_BASE + (var * MEMORY_SECTOR_SIZE)) , MEMORY_SECTOR_SIZE) != HAL_OK)
+  			{
+  			for (var2 = 0; var2 < MEMORY_SECTOR_SIZE; var2++)
+  				{
+  				buffer_Read[var2] = *(uint32_t*) ReadAddress;
+  				ReadAddress++;
+
+  				if (buffer_Read[var2] != buffer_test[var2])
+  					Error_Handler();  //breakpoint - error detected - otherwise QSPI works properly
+  				}
+  			}
+  		}
 
 
 #endif
@@ -245,7 +239,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 200;
+  RCC_OscInitStruct.PLL.PLLN = 216;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -269,7 +263,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_6) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7) != HAL_OK)
   {
     Error_Handler();
   }

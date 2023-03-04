@@ -32,14 +32,13 @@ struct StorageInfo const StorageInfo = {
 
 		NOR_FLASH,                  		 // Device Type
 		0x90000000,                			 // Device Start Address
-		0x01000000,//MEMORY_FLASH_SIZE,      // Device Size in Bytes
+		MEMORY_FLASH_SIZE,      			 // Device Size in Bytes
 		MEMORY_PAGE_SIZE,                    // Programming Page Size
 		0xFF,                                // Initial Content of Erased Memory
 
-      //  (MEMORY_FLASH_SIZE / MEMORY_SECTOR_SIZE),  // Sector Numbers,
-       // (uint32_t) MEMORY_SECTOR_SIZE,
+        (MEMORY_FLASH_SIZE / MEMORY_SECTOR_SIZE),  // Sector Numbers,
+        (uint32_t) MEMORY_SECTOR_SIZE,       		//Sector Size
 
-		0x00000100, 0x00010000,     		// Sector Num : 256 ,Sector Size: 64KBytes
 		0x00000000, 0x00000000,
 
 		};
