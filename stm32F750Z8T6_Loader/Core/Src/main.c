@@ -270,39 +270,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-/* QUADSPI init function */
-
-uint8_t CSP_QUADSPI_Init(void)
-{
-	//prepare QSPI peripheral for ST-Link Utility operations
-	if (HAL_QSPI_DeInit(&hqspi) != HAL_OK) {
-		return HAL_ERROR;
-	}
-
-	MX_QUADSPI_Init();
-
-
-	if (QSPI_ResetChip() != HAL_OK) {
-		return HAL_ERROR;
-	}
-
-	HAL_Delay(1);
-
-	if (QSPI_AutoPollingMemReady() != HAL_OK) {
-		return HAL_ERROR;
-	}
-
-	if (QSPI_WriteEnable() != HAL_OK) {
-
-		return HAL_ERROR;
-	}
-
-	if (QSPI_Configuration() != HAL_OK) {
-		return HAL_ERROR;
-	}
-
-	return HAL_OK;
-}
 
 /* USER CODE END 4 */
 
